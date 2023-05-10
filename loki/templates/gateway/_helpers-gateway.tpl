@@ -14,6 +14,14 @@ app.kubernetes.io/component: gateway
 {{- end }}
 
 {{/*
+gateway ingress labels
+*/}}
+{{- define "loki.gatewayIngressLabels" -}}
+{{ include "loki.gatewayLabels" . }}
+{{- toYaml .Values.gateway.ingress.labels | nindent 0 -}}
+{{- end }}
+
+{{/*
 gateway selector labels
 */}}
 {{- define "loki.gatewaySelectorLabels" -}}

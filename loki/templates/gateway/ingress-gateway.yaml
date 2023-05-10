@@ -3,13 +3,12 @@
 {{- $ingressApiIsStable := eq (include "loki.ingress.isStable" .) "true" -}}
 {{- $ingressSupportsIngressClassName := eq (include "loki.ingress.supportsIngressClassName" .) "true" -}}
 {{- $ingressSupportsPathType := eq (include "loki.ingress.supportsPathType" .) "true" -}}
-{{- $labels := merge .Values.gateway.ingress.labels (include "loki.gatewayLabels" .) }}
 apiVersion: {{ include "loki.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ include "loki.gatewayFullname" . }}
   labels:
-    {{- toYaml $labels | nindent 4 }}
+    {{- include "loki.gatewayIngressLabels" . | nindent 4 }}
   {{- with .Values.gateway.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
